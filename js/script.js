@@ -15,7 +15,6 @@ const taskData = JSON.parse(localStorage.getItem("data")) || [];
 let currentTask = {};
 
 const addOrUpdateTask = () => {
-  addOrUpdateTaskBtn.innerText = "Add Task";
   const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
   const taskObj = {
     id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,
@@ -43,9 +42,9 @@ const updateTaskContainer = () => {
     tasksContainer.innerHTML += `
         <div class="task" id="${id}">
           <p><strong>Title:</strong> ${title}</p>
-          <p><strong>Description:</strong> ${description}</p>
-          <p><strong>Date:</strong> ${date}</p>
-          <p><strong>Hour:</strong> ${time}</p>
+          ${description ? `<p><strong>Description:</strong> ${description}</p>` : ''}
+            ${date ? `<p><strong>Date:</strong> ${date}</p>` : ''}
+            ${time ? `<p><strong>Hour:</strong> ${time}h</p>` : ''}
           <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
           <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
         </div>
@@ -93,9 +92,10 @@ if (taskData.length) {
   updateTaskContainer();
 }
 
-openTaskFormBtn.addEventListener("click", () =>
-  taskForm.classList.toggle("hidden")
-);
+openTaskFormBtn.addEventListener("click", () => {
+  taskForm.classList.toggle("hidden");
+  addOrUpdateTaskBtn.innerText = "Add Task";
+});
 
 closeTaskFormBtn.addEventListener("click", () => {
   const formInputsContainValues =

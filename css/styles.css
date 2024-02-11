@@ -42,6 +42,15 @@
   textarea {
     resize: none;
   }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--primary); 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--seconday);
+  }
   
   .todo-app {
     background-color: var(--primary);
@@ -65,6 +74,7 @@
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
   }
   
   .btn:hover {
@@ -174,7 +184,7 @@
   
   .task {
     background-color: rgba(48, 38, 125, 0.1);
-    border-left: 2px solid var(--accent);
+    border-left: 3px solid var(--accent);
     margin: 20px;
     padding: 20px;
     border-radius: 5px;
