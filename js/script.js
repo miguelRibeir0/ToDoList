@@ -8,6 +8,7 @@ const discardBtn = document.getElementById("discard-btn");
 const tasksContainer = document.getElementById("tasks-container");
 const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
+const timeInput = document.getElementById("time-input");
 const descriptionInput = document.getElementById("description-input");
 
 const taskData = JSON.parse(localStorage.getItem("data")) || [];
@@ -20,6 +21,7 @@ const addOrUpdateTask = () => {
     id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,
     title: titleInput.value,
     date: dateInput.value,
+    time: timeInput.value,
     description: descriptionInput.value,
   };
 
@@ -37,12 +39,13 @@ const addOrUpdateTask = () => {
 const updateTaskContainer = () => {
   tasksContainer.innerHTML = "";
 
-  taskData.forEach(({ id, title, date, description }) => {
+  taskData.forEach(({ id, title, date, time, description }) => {
     tasksContainer.innerHTML += `
         <div class="task" id="${id}">
           <p><strong>Title:</strong> ${title}</p>
           <p><strong>Description:</strong> ${description}</p>
           <p><strong>Date:</strong> ${date}</p>
+          <p><strong>Hour:</strong> ${time}</p>
           <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
           <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
         </div>
@@ -69,6 +72,7 @@ const editTask = (buttonEl) => {
 
   titleInput.value = currentTask.title;
   dateInput.value = currentTask.date;
+  timeInput.value = currentTask.time;
   descriptionInput.value = currentTask.description;
 
   addOrUpdateTaskBtn.innerText = "Update Task";
@@ -79,6 +83,7 @@ const editTask = (buttonEl) => {
 const reset = () => {
   titleInput.value = "";
   dateInput.value = "";
+  timeInput.value = "";
   descriptionInput.value = "";
   taskForm.classList.toggle("hidden");
   currentTask = {};
@@ -94,10 +99,10 @@ openTaskFormBtn.addEventListener("click", () =>
 
 closeTaskFormBtn.addEventListener("click", () => {
   const formInputsContainValues =
-    titleInput.value || dateInput.value || descriptionInput.value;
+    titleInput.value || dateInput.value || descriptionInput.value || timeInput.value;
   const formInputValuesUpdated =
     titleInput.value !== currentTask.title ||
-    dateInput.value !== currentTask.date ||
+    dateInput.value !== currentTask.date || timeInput.value !== currentTask.time ||
     descriptionInput.value !== currentTask.description;
 
   if (formInputsContainValues && formInputValuesUpdated) {

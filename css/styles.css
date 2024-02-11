@@ -142,7 +142,8 @@
   
   #title-input,
   #date-input,
-  #description-input {
+  #description-input,
+  #time-input {
     align-self: center;
     width: 90%;
     margin-bottom: 10px;
@@ -173,6 +174,7 @@
   
   .task {
     background-color: rgba(48, 38, 125, 0.1);
+    border-left: 2px solid var(--accent);
     margin: 20px;
     padding: 20px;
     border-radius: 5px;
