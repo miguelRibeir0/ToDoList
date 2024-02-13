@@ -120,17 +120,20 @@
   .task-form-header {
     display: flex;
     justify-content: flex-end;
+    background-color: var(--primary);
   }
   
   .task-form-body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    background-color: var(--primary);
   }
   
   .task-form-footer {
     display: flex;
     justify-content: center;
+    background-color: var(--primary);
   }
 
   .task-form-label,
@@ -188,6 +191,7 @@
     margin: 20px;
     padding: 20px;
     border-radius: 5px;
+    position: relative;
   }
   .task p {
     font-size: 1.3rem;
@@ -203,4 +207,24 @@
     margin-top: 15px;
     margin-left: 0;
   }
-  
+  .counter-label {
+    font-size: 1rem !important;
+    position: absolute;
+    bottom: 23px;
+    right: 90px;
+  }
+  .test {
+    bottom: 12px;
+    right: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 60px;
+    height:60px;
+    border-top: 3px solid var(--seconday);
+    border-left: 3px solid var(--seconday);
+    border-right: 3px solid var(--seconday);
+    border-bottom: 3px solid transparent;
+  }

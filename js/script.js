@@ -29,7 +29,7 @@ const addOrUpdateTask = () => {
   } else {
     taskData[dataArrIndex] = taskObj;
   }
-
+  
   localStorage.setItem("data", JSON.stringify(taskData));
   updateTaskContainer();
   reset();
@@ -45,6 +45,7 @@ const updateTaskContainer = () => {
           ${description ? `<p><strong>Description:</strong> ${description}</p>` : ''}
             ${date ? `<p><strong>Date:</strong> ${date}</p>` : ''}
             ${time ? `<p><strong>Hour:</strong> ${time}h</p>` : ''}
+            <p class="counter-label">Days remaining:</p><span class="test"><p class="counter">1</p></span>
           <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
           <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
         </div>
