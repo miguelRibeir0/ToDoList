@@ -29,7 +29,7 @@ const addOrUpdateTask = () => {
   } else {
     taskData[dataArrIndex] = taskObj;
   }
-  
+
   localStorage.setItem("data", JSON.stringify(taskData));
   updateTaskContainer();
   reset();
@@ -39,17 +39,26 @@ const updateTaskContainer = () => {
   tasksContainer.innerHTML = "";
 
   taskData.forEach(({ id, title, date, time, description }) => {
+    const currentDate = new Date();
+    const givenDate = new Date(date);
+    const timeDiff = givenDate.getTime() - currentDate.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
     tasksContainer.innerHTML += `
-        <div class="task" id="${id}">
-          <p><strong>Title:</strong> ${title}</p>
-          ${description ? `<p><strong>Description:</strong> ${description}</p>` : ''}
-            ${date ? `<p><strong>Date:</strong> ${date}</p>` : ''}
-            ${time ? `<p><strong>Hour:</strong> ${time}h</p>` : ''}
-            <p class="counter-label">Days remaining:</p><span class="test"><p class="counter">1</p></span>
-          <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
-          <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
-        </div>
-      `;
+      <div class="task" id="${id}">
+        <p><strong>Title:</strong> ${title}</p>
+        ${
+          description
+            ? `<p><strong>Description:</strong> ${description}</p>`
+            : ""
+        }
+        ${date ? `<p><strong>Date:</strong> ${date}</p>` : ""}
+        ${time ? `<p><strong>Hour:</strong> ${time}h</p>` : ""}
+        <p class="counter-label">Days remaining:</p><span class="test"><p class="counter ${daysDiff < 0 ? "negative" : ""}">${daysDiff}</p></span>
+        <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
+        <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
+      </div>
+    `;
   });
 };
 
@@ -58,9 +67,13 @@ const deleteTask = (buttonEl) => {
     (item) => item.id === buttonEl.parentElement.id
   );
 
-  buttonEl.parentElement.remove();
-  taskData.splice(dataArrIndex, 1);
-  localStorage.setItem("data", JSON.stringify(taskData));
+  const confirmDelete = confirm("Are you sure you want to remove the task?");
+
+  if (confirmDelete) {
+    buttonEl.parentElement.remove();
+    taskData.splice(dataArrIndex, 1);
+    localStorage.setItem("data", JSON.stringify(taskData));
+  }
 };
 
 const editTask = (buttonEl) => {
@@ -100,10 +113,14 @@ openTaskFormBtn.addEventListener("click", () => {
 
 closeTaskFormBtn.addEventListener("click", () => {
   const formInputsContainValues =
-    titleInput.value || dateInput.value || descriptionInput.value || timeInput.value;
+    titleInput.value ||
+    dateInput.value ||
+    descriptionInput.value ||
+    timeInput.value;
   const formInputValuesUpdated =
     titleInput.value !== currentTask.title ||
-    dateInput.value !== currentTask.date || timeInput.value !== currentTask.time ||
+    dateInput.value !== currentTask.date ||
+    timeInput.value !== currentTask.time ||
     descriptionInput.value !== currentTask.description;
 
   if (formInputsContainValues && formInputValuesUpdated) {
@@ -125,3 +142,7 @@ taskForm.addEventListener("submit", (e) => {
 
   addOrUpdateTask();
 });
+
+window.onload = function () {  //so the days remaining are updated when the page is loaded
+  updateTaskContainer();
+};

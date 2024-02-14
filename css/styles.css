@@ -115,6 +115,7 @@
     justify-content: space-between;
     padding-bottom: 50px;
     overflow: auto;
+    z-index: 2;
   }
   
   .task-form-header {
@@ -227,4 +228,7 @@
     border-left: 3px solid var(--seconday);
     border-right: 3px solid var(--seconday);
     border-bottom: 3px solid transparent;
+  }
+  .negative {
+    color: red;
   }
