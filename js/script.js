@@ -38,7 +38,19 @@ const addOrUpdateTask = () => {
 const updateTaskContainer = () => {
   tasksContainer.innerHTML = "";
 
-  taskData.forEach(({ id, title, date, time, description }) => {
+  const sortedTasks = taskData.sort((a, b) => {    // sort the tasks by the days remaining
+    const currentDate = new Date();
+    const aDate = new Date(a.date);
+    const bDate = new Date(b.date);
+    const aTimeDiff = aDate.getTime() - currentDate.getTime();
+    const bTimeDiff = bDate.getTime() - currentDate.getTime();
+    const aDaysDiff = Math.ceil(aTimeDiff / (1000 * 3600 * 24));
+    const bDaysDiff = Math.ceil(bTimeDiff / (1000 * 3600 * 24));
+
+    return aDaysDiff - bDaysDiff;
+  });
+
+  sortedTasks.forEach(({ id, title, date, time, description }) => {
     const currentDate = new Date();
     const givenDate = new Date(date);
     const timeDiff = givenDate.getTime() - currentDate.getTime();
