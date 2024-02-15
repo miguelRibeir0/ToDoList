@@ -142,6 +142,10 @@
   #description-input {
     display: block;
   }
+
+  input::-webkit-datetime-edit {
+    display: block;
+  }
   
   .task-form-label {
     margin-bottom: 5px;
