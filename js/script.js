@@ -59,14 +59,10 @@ const updateTaskContainer = () => {
     tasksContainer.innerHTML += `
       <div class="task" id="${id}">
         <p><strong>Title:</strong> ${title}</p>
-        ${
-          description
-            ? `<p><strong>Description:</strong> ${description}</p>`
-            : ""
-        }
+        ${description ? `<p><strong>Description:</strong> ${description}</p>` : ""}
         ${date ? `<p><strong>Date:</strong> ${date}</p>` : ""}
         ${time ? `<p><strong>Hour:</strong> ${time}h</p>` : ""}
-        <p class="counter-label">Days remaining:</p><span class="test"><p class="counter ${daysDiff < 0 ? "negative" : ""}">${daysDiff}</p></span>
+        <p class="counter-label">Days remaining:</p><p class="counter-label-mobile">Days left:</p><span class="counter-circle"><p class="counter ${daysDiff < 0 ? "negative" : ""}">${daysDiff}</p></span>
         <button onclick="editTask(this)" type="button" class="btn btn-task">Edit</button>
         <button onclick="deleteTask(this)" type="button" class="btn btn-task">Delete</button>
       </div>
